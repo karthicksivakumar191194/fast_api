@@ -1,0 +1,46 @@
+# Python-specific
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+
+# Environment files
+.env
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# SQLAlchemy Migrations
+# Ignore everything inside the migrations/versions directory
+migrations/versions/*
+
+# But keep the migrations/versions directory itself (allow it to be tracked)
+!migrations/versions/
+
+# IDE-specific files
+.vscode/
+.idea/
+*.swp
+
+# pytest and coverage results
+*.coveragerc
+.coverage
+nosetests.xml
+pytest-debug.log
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Docker
+docker-compose.override.yml
+Dockerfile.*

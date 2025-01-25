@@ -1,0 +1,123 @@
+# FastAPI Application
+
+## Project Structure
+
+## Installation
+
+1. Clone the repository
+    ```bash
+    git clone https://github.com/karthicksivakumar191194/fast_api.git
+    cd your-repository
+    ```
+
+2. Create and activate a virtual environment:
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    ```
+
+3. Install the required dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+## Running the Application
+
+### Development Server:
+
+You can start the FastAPI development server using:
+  ```bash
+  python3 run.py
+   ```
+
+## Database Migrations
+
+1. Creating a new Migration:
+    ```bash
+    alembic revision --autogenerate -m "migration description"
+    ```
+
+2. Apply the Migration
+    ```bash
+    alembic upgrade head
+    ```
+
+3. Roll Back a Migration
+    ```bash
+    alembic downgrade -1
+    ```
+
+## Localization
+
+### How It Works:
+
+#### Language Detection:
+
+The localization middleware determines the language to use based on the following order of precedence:
+1. Checks the `lang` query parameter.
+2. If not provided, checks the ` Accept-Language` header.
+3. Defaults to `en` (English) if no valid language is found.
+
+#### Translations Loading:
+1. The middleware loads `.mo` files from the `locales` directory.
+2.  If a specific language `.mo` file is missing, it falls back to the default language(en).
+
+### Access Translations:
+1. Each request has `request.state.translations` for localized strings.
+    ```
+    translations = request.state.get_translations("role")
+    ```
+2. Use `gettext()` to fetch translations based on the current language.
+    ```
+     role = "admin"
+     user = "karthick"
+
+    message = translations.gettext("role_assigned").format(role=role, user=user)
+    ```
+
+### Adding a New Language:
+1. Add the new language files to the `locales` folder.
+2. After adding or updating the `.po` files, compile the translations using the following command:
+    ```bash
+        pybabel compile -d locales -D user
+    ```
+    ```bash
+        pybabel compile -d locales -D role
+    ```
+3. Your application will now support the newly added language.
+
+### Validate the PO File:
+After adding new language, you can validate the .po file using `msgfmt`:
+    ```bash
+        msgfmt locales/en/LC_MESSAGES/user.po --check
+    ```
+
+## Core Packages
+
+```bash
+    pip install fastapi
+```
+
+```bash
+    pip install Flask-SQLAlchemy
+```
+
+```bash
+    pip install psycopg2-binary
+```
+
+```bash
+    pip install uvicorn[standard]
+```
+
+```bash
+    pip install pydantic-settings
+```
+
+```bash
+    pip install alembic
+```
+
+```bash
+    pip install Babel
+```

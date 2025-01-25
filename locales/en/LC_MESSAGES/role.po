@@ -1,0 +1,17 @@
+# Karthick <karthicksivakumardev@gmail.com>, 2025.
+#
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "role_created"
+msgstr "Role {name} created successfully"
+
+msgid "role_deleted"
+msgstr "Role {name} deleted successfully"
+
+msgid "role_assigned"
+msgstr "Role {role} assigned to User {user} successfully"
