@@ -16,7 +16,7 @@ def create_app() -> FastAPI:
     fast_api_app.include_router(api_router, prefix="")
 
     # Custom Middlewares
-    app.add_middleware(DynamicLocalizationMiddleware, default_language="en", supported_languages=["en", "es"])
+    fast_api_app.add_middleware(DynamicLocalizationMiddleware, default_language="en", supported_languages=["en", "es"])
 
     # Allow Cross-Origin Resource Sharing (CORS)
     fast_api_app.add_middleware(

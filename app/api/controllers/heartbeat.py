@@ -2,8 +2,8 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
-@router.get("/check")
-def check_heartbeat():
+@router.get("/application")
+def check_application_heartbeat():
     """
     Heartbeat endpoint to check if the application is alive and healthy.
 
@@ -13,7 +13,7 @@ def check_heartbeat():
     return {"status": "OK"}
 
 @router.get("/database")
-def check_heartbeat():
+def check_database_heartbeat():
     """
     Heartbeat endpoint to check if the database is alive and healthy.
 

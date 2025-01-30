@@ -43,7 +43,7 @@ class SubscriptionPlan(Base):
     order = Column(Integer, default=0)
     details = Column(JSONB, default={})
     details_content = Column(JSONB, default=[])
-    plan_type = Column(SqlEnum(SubscriptionPlanTypeEnum, name="plan_type_enum"), nullable=False)
+    plan_type = Column(SqlEnum(SubscriptionPlanTypeEnum), nullable=False)
     expiry_days = Column(Integer, nullable=True)
     status = Column(SqlEnum(SubscriptionPlanStatusEnum), default=SubscriptionPlanStatusEnum.ACTIVE, nullable=False)
     created_at = Column(DateTime, default=func.current_timestamp())

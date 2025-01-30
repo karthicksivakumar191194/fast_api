@@ -64,11 +64,11 @@ The localization middleware determines the language to use based on the followin
 
 ### Access Translations:
 1. Each request has `request.state.translations` for localized strings.
-    ```
+    ```bash
     translations = request.state.get_translations("role")
     ```
 2. Use `gettext()` to fetch translations based on the current language.
-    ```
+    ```bash
      role = "admin"
      user = "karthick"
 
@@ -87,10 +87,20 @@ The localization middleware determines the language to use based on the followin
 3. Your application will now support the newly added language.
 
 ### Validate the PO File:
+
 After adding new language, you can validate the .po file using `msgfmt`:
-    ```bash
+
+ ```bash
         msgfmt locales/en/LC_MESSAGES/user.po --check
-    ```
+ ```
+
+## Seeder
+
+### Running the Seeder:
+
+```bash
+        python3 -m app.seeder.user_seeder
+ ```
 
 ## Core Packages
 
@@ -115,9 +125,34 @@ After adding new language, you can validate the .po file using `msgfmt`:
 ```
 
 ```bash
+    pip install passlib[bcrypt]
+```
+
+```bash
     pip install alembic
 ```
 
 ```bash
     pip install Babel
+```
+
+## gRPC
+
+1. To build an API with gRPC, you need to install the following Python packages:
+
+```bash
+    pip install grpcio grpcio-tools
+```
+2. Install `protoc` (Protocol Buffers Compiler) on your machine.
+
+3. Verify protoc Installation
+
+```bash
+    protoc --version
+```
+
+4. Generate Python Code from .proto File
+
+```bash
+    python -m grpc_tools.protoc -I./app/services/grpc/proto --python_out=./app/services/grpc/proto --grpc_python_out=./app/services/grpc/proto ./app/services/grpc/proto/user_service.proto
 ```

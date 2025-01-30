@@ -23,15 +23,15 @@ class Tenant(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String(255), nullable=False)
-    current_subscription_plan = Column(UUID(as_uuid=True), ForeignKey('tenant_subscription_history.id', ondelete='SET NULL'))
+    # current_subscription_plan = Column(UUID(as_uuid=True), ForeignKey('tenant_subscription_history.id', ondelete='SET NULL'))
     status = Column(SqlEnum(TenantStatusEnum), default=TenantStatusEnum.ACTIVE,nullable=False)
     created_at = Column(DateTime, default=func.current_timestamp())
     updated_at = Column(DateTime, default=func.current_timestamp(), onupdate=func.current_timestamp())
 
     # Relationships
-    subscription_history = relationship('TenantSubscriptionHistory', backref='tenant', lazy=True)
+    # subscription_history = relationship('TenantSubscriptionHistory', backref='tenant', lazy=True)
 
     __table_args__ = (
         Index('idx_tenants_name', 'name'),
-        Index('idx_tenants_current_subscription_plan', 'current_subscription_plan'),
+        # Index('idx_tenants_current_subscription_plan', 'current_subscription_plan'),
     )

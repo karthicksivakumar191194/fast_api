@@ -13,13 +13,6 @@ venv/
 env/
 .venv/
 
-# SQLAlchemy Migrations
-# Ignore everything inside the migrations/versions directory
-migrations/versions/*
-
-# But keep the migrations/versions directory itself (allow it to be tracked)
-!migrations/versions/
-
 # IDE-specific files
 .vscode/
 .idea/
