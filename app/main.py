@@ -1,5 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.exceptions import RequestValidationError
+
+from app.exceptions import validation_exception_handler
 from app.middlewares.localization import DynamicLocalizationMiddleware
 from app.api.routes import api_router
 from app.settings import settings
@@ -11,6 +14,9 @@ def create_app() -> FastAPI:
     """
     # Create FastAPI App
     fast_api_app = FastAPI()
+
+    # Register custom exception handler for validation errors
+    fast_api_app.add_exception_handler(RequestValidationError, validation_exception_handler)
 
     # Include router with versioned prefix
     fast_api_app.include_router(api_router, prefix="")

@@ -1,8 +1,8 @@
 """create tenant subscription history table
 
-Revision ID: 7a9ecf9a7d7c
-Revises: 46367dd7b0ee
-Create Date: 2025-01-30 16:52:49.447856
+Revision ID: d5522c05d39c
+Revises: 3fd78a76c1c4
+Create Date: 2025-02-09 12:27:03.185170
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision: str = '7a9ecf9a7d7c'
-down_revision: Union[str, None] = '46367dd7b0ee'
+revision: str = 'd5522c05d39c'
+down_revision: Union[str, None] = '3fd78a76c1c4'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
@@ -31,14 +31,14 @@ def upgrade() -> None:
     sa.Column('details', postgresql.JSONB(astext_type=sa.Text()), nullable=True),
     sa.Column('plan_type', sa.String(length=255), nullable=False),
     sa.Column('plan_price_type', sa.String(length=255), nullable=False),
-    sa.Column('invoice_number', sa.Integer(), nullable=True),
+    sa.Column('invoice_number', sa.Integer(), nullable=False),
     sa.Column('invoice_url', sa.String(length=255), nullable=True),
     sa.Column('start_timestamp', sa.DateTime(), nullable=True),
     sa.Column('end_timestamp', sa.DateTime(), nullable=True),
-    sa.Column('payment_via', sa.String(length=255), nullable=True),
+    sa.Column('payment_via', sa.String(length=255), nullable=False),
     sa.Column('expiry_days', sa.Integer(), nullable=True),
     sa.Column('expiry_date', sa.Date(), nullable=True),
-    sa.Column('status', sa.Enum('DELETED', 'ACTIVE', 'IN_ACTIVE', name='subscriptionhistorystatusenum'), nullable=False),
+    sa.Column('status', sa.Enum('DELETED', 'ACTIVE', 'IN_ACTIVE', name='subscriptionhistorystatusenum'), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['subscription_plan'], ['subscription_plans.id'], ondelete='CASCADE'),

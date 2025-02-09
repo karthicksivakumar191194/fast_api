@@ -20,6 +20,9 @@ class Settings(BaseSettings):
     token_secret_key: str
     token_algorithm: str = 'HS256'
 
+    # Frontend
+    frontend_url: str
+
     class Config:
         env_file = '.env'
         env_file_encoding = 'utf-8'

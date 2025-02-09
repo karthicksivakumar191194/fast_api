@@ -1,11 +1,11 @@
-from sqlalchemy import Column, UUID, Integer, String, Text, DateTime, Numeric, func, Index, Enum as SqlEnum
+from sqlalchemy import Column, UUID, Integer, String, Text, DateTime, Numeric, func, Index, Enum
 from sqlalchemy.dialects.postgresql import JSONB
-from enum import Enum
+from enum import Enum as PyEnum
 import uuid
 
 from app.db.database import Base
 
-class SubscriptionPlanTypeEnum(Enum):
+class SubscriptionPlanTypeEnum(PyEnum):
     FREE_PLAN = ("free_plan", "Free Plan")
     PAID_PLAN = ("paid_plan", "Paid Plan")
     CUSTOM_PLAN = ("custom_plan", "Custom Plan")
@@ -18,7 +18,7 @@ class SubscriptionPlanTypeEnum(Enum):
     def list(cls):
         return list(cls)
 
-class SubscriptionPlanStatusEnum(Enum):
+class SubscriptionPlanStatusEnum(PyEnum):
     DELETED = ("deleted", "Deleted")
     ACTIVE = ("active", "Active")
 
@@ -43,13 +43,15 @@ class SubscriptionPlan(Base):
     order = Column(Integer, default=0)
     details = Column(JSONB, default={})
     details_content = Column(JSONB, default=[])
-    plan_type = Column(SqlEnum(SubscriptionPlanTypeEnum), nullable=False)
+    plan_type = Column(Enum(SubscriptionPlanTypeEnum), nullable=False)
     expiry_days = Column(Integer, nullable=True)
-    status = Column(SqlEnum(SubscriptionPlanStatusEnum), default=SubscriptionPlanStatusEnum.ACTIVE, nullable=False)
+    status = Column(Enum(SubscriptionPlanStatusEnum), default=SubscriptionPlanStatusEnum.ACTIVE)
     created_at = Column(DateTime, default=func.current_timestamp())
     updated_at = Column(DateTime, default=func.current_timestamp(), onupdate=func.current_timestamp())
 
+    # Indexes
     __table_args__ = (
-        Index('idx_subscription_plans_name', 'name'),
-        Index('idx_subscription_plans_plan_type', 'plan_type'),
+        Index('idx_subscription_plan_name', 'name'),
+        Index('idx_subscription_plan_plan_type', 'plan_type'),
+        Index('idx_subscription_plan_status', 'status'),
     )

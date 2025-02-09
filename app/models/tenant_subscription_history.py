@@ -1,12 +1,12 @@
-from sqlalchemy import Column, UUID, Numeric, String, DateTime, Date, Integer, ForeignKey, func, Index, Enum as SqlEnum
+from sqlalchemy import Column, UUID, Numeric, String, DateTime, Date, Integer, ForeignKey, func, Index, Enum
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import JSONB
-from enum import Enum
+from enum import Enum as PyEnum
 import uuid
 
 from app.db.database import Base
 
-class SubscriptionHistoryStatusEnum(Enum):
+class SubscriptionHistoryStatusEnum(PyEnum):
     DELETED = ("deleted", "Deleted")
     ACTIVE = ("active", "Active")
     IN_ACTIVE = ("in_active", "In Active")
@@ -32,21 +32,22 @@ class TenantSubscriptionHistory(Base):
     details = Column(JSONB, default={})
     plan_type = Column(String(255), nullable=False)
     plan_price_type = Column(String(255), nullable=False)
-    invoice_number = Column(Integer, unique=True)
-    invoice_url = Column(String(255))
-    start_timestamp = Column(DateTime)
-    end_timestamp = Column(DateTime)
-    payment_via = Column(String(255))
-    expiry_days = Column(Integer)
-    expiry_date = Column(Date)
-    status = Column(SqlEnum(SubscriptionHistoryStatusEnum), default=SubscriptionHistoryStatusEnum.IN_ACTIVE, nullable=False)
+    invoice_number = Column(Integer, unique=True, nullable=False)
+    invoice_url = Column(String(255), nullable=True)
+    start_timestamp = Column(DateTime, nullable=True)
+    end_timestamp = Column(DateTime, nullable=True)
+    payment_via = Column(String(255), nullable=False)
+    expiry_days = Column(Integer, nullable=True)
+    expiry_date = Column(Date, nullable=True)
+    status = Column(Enum(SubscriptionHistoryStatusEnum), default=SubscriptionHistoryStatusEnum.IN_ACTIVE)
     created_at = Column(DateTime, default=func.current_timestamp())
     updated_at = Column(DateTime, default=func.current_timestamp(), onupdate=func.current_timestamp())
 
     # Relationships
-    tenant = relationship('Tenant', backref='subscription_history', lazy=True)
-    subscription_plan_rel = relationship('SubscriptionPlan', backref='subscription_history', lazy=True)
+    tenant = relationship('Tenant', backref='tenant_subscription_history', lazy=True)
+    subscription_plan_rel = relationship('SubscriptionPlan', backref='plan_subscription_history', lazy=True)
 
+    # Indexes
     __table_args__ = (
         Index('idx_org_sub_hist_tenant_id', 'tenant_id'),
         Index('idx_org_sub_hist_subscription_plan', 'subscription_plan'),

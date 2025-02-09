@@ -1,4 +1,3 @@
-import uuid
 from app.seeder.base_seeder import BaseSeeder
 from app.models.user import User, UserStatusEnum
 from app.utils.helpers import hash_password
