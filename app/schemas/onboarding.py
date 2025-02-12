@@ -1,23 +1,47 @@
-from pydantic import BaseModel, HttpUrl
-from typing import Optional
+from uuid import UUID
+from pydantic import BaseModel
 from app.schemas.base_schema import CreateResponse, UpdateResponse
 
+# Tenant
 class OnboardRequest(BaseModel):
     company_name: str
-    company_website: Optional[HttpUrl] = None
-    company_size: str
-    company_location: str
-    industry_type: str
-    owner_first_name: str
-    owner_last_name: Optional[str] = None
+    owner_name: str
     owner_email: str
-    owner_mobile_no: Optional[str] = None
+    owner_password: str
 
 class OnboardResponse(CreateResponse):
     pass
 
-class OnboardResendEmailRequest(BaseModel):
-    tenant_id: str
+class ValidateTenantOTPRequest(BaseModel):
+    tenant_id: UUID
+    otp: str
 
-class OnboardResendEmailResponse(UpdateResponse):
+class ValidateTenantOTPResponse(BaseModel):
+    pass
+
+class ResendOnboardOTPRequest(BaseModel):
+    tenant_id: UUID
+
+class ResendOnboardOTPResponse(BaseModel):
+    pass
+
+class CompleteTenantSetupRequest(BaseModel):
+    company_name: str
+    company_size: str
+    company_location: str
+    industry_type: str
+    currently_manage: str
+    solutions_interested: str
+    workspace_name: str
+
+class CompleteTenantSetupResponse(UpdateResponse):
+    pass
+
+# Admin
+class OnboardOfflineRequest(BaseModel):
+    company_name: str
+    owner_name: str
+    owner_email: str
+
+class OnboardOfflineResponse(CreateResponse):
     pass

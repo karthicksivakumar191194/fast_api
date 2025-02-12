@@ -1,12 +1,12 @@
 from sqlalchemy.orm import Session
-from app.models import Workspace
+from app.models import Tenant, Workspace
 
-def create_default_workspace(db: Session, tenant_id: str) -> Workspace:
+def create_default_workspace(db: Session, tenant: Tenant) -> Workspace:
     """
-    Create the default workspace for the newly onboarded account.
+    Create the default workspace for the tenant.
     """
     workspace = Workspace(
-        tenant_id=tenant_id,
+        tenant_id=tenant.id,
         name="Default",
         is_default=True,
     )

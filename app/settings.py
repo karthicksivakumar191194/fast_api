@@ -5,6 +5,7 @@ from typing import List
 class Settings(BaseSettings):
     app_name: str = 'FastAPI Application'
     debug: bool = False
+    environment: str = 'development' # local, development, qa, production
     secret_key: str
     allowed_hosts: List[str] = []
 

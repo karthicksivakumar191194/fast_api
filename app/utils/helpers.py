@@ -14,6 +14,13 @@ def hash_password(password: str) -> str:
     return pwd_context.hash(password)
 
 
+def generate_otp(length: int = 6) -> str:
+    """
+    Generates OTP
+    """
+    return ''.join(random.choices(string.digits, k=length))
+
+
 def generate_random_string(length: int = 4) -> str:
     """
     Generates a random string of a specified length.

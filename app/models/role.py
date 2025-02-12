@@ -1,4 +1,4 @@
-from sqlalchemy import Column, UUID, String, DateTime, ForeignKey, func, Index, Enum
+from sqlalchemy import Column, UUID, String, DateTime, ForeignKey, func, Index, Boolean, Enum
 from sqlalchemy.orm import relationship
 from enum import Enum as PyEnum
 import uuid
@@ -23,6 +23,7 @@ class Role(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     tenant_id = Column(UUID(as_uuid=True), ForeignKey('tenants.id', ondelete='CASCADE'), nullable=False)
     name = Column(String(255), nullable=False)
+    is_default = Column(Boolean, default=False)
     status = Column(Enum(RoleStatusEnum), default=RoleStatusEnum.ACTIVE)
     created_at = Column(DateTime, default=func.current_timestamp())
     updated_at = Column(DateTime, default=func.current_timestamp(), onupdate=func.current_timestamp())

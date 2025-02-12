@@ -10,7 +10,7 @@ api_router = APIRouter()
 
 # Include all routes
 api_router.include_router(heartbeat_router, prefix="/v1/heartbeat", tags=["Heartbeat"])
-api_router.include_router(onboarding_router, prefix="/v1/onboard", tags=["Onboard Account"])
+api_router.include_router(onboarding_router, prefix="/v1/onboard", tags=["Onboard Tenant"])
 # api_router.include_router(auth_router, prefix="/v1/auth", tags=["Authentication"])
 api_router.include_router(workspace_router, prefix="/v1/workspace", tags=["Workspace"])
 api_router.include_router(location_router, prefix="/v1/location", tags=["Location"])

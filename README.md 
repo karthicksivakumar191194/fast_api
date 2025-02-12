@@ -28,6 +28,22 @@ You can start the FastAPI development server using:
   python3 run.py
    ```
 
+## Alembic
+1. Initialize Alembic
+    ```bash
+    alembic init alembic
+    ```
+
+2. Configure the Database URL
+    ```bash
+    sqlalchemy.url = postgresql://username:password@localhost/yourdatabase
+    ```
+
+3. Import Application Models in env.py
+    ```bash
+    from app.models import *
+    ```
+
 ## Database Migrations
 
 1. Creating a new Migration:
@@ -132,6 +148,10 @@ After adding new language, you can validate the .po file using `msgfmt`:
 
 ```bash
     pip install Babel
+```
+
+```bash
+pip install python-multipart
 ```
 
 ## gRPC
